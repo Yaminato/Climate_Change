@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pampanga State University</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+   
+
+    <header class="hero">
+        <!-- Background slides (blurred) -->
+        <div class="bg-slides">
+            <div class="slide" style="background-image: url('campus_map.jpeg'); --i:0"></div>
+            <div class="slide" style="background-image: url('admin.png'); --i:1"></div>
+            <div class="slide" style="background-image: url('mrm.png'); --i:2"></div>
+            <div class="slide" style="background-image: url('arm.png'); --i:3"></div>
+        </div>
+
+        <!-- Center content (not blurred) -->
+        <div class="hero-content">
+            <h1 id="typewriter" class="site-title"></h1>
+            <p class="subtitle">Climate change education • Campus safety • Disaster preparedness</p>
+            <a class="hero-btn" href="home.html">Enter Site</a>
+        </div>
+    </header>
+</body>
+    <script>
+    // Simple async typewriter that cycles through texts
+    async function typewriter(el, texts, typeSpeed = 100, pause = 2000) {
+        function wait(ms){return new Promise(r => setTimeout(r, ms));}
+        while(true){
+            for(const text of texts){
+                el.textContent = '';
+                for(let i=0;i<text.length;i++){
+                    el.textContent += text[i];
+                    await wait(typeSpeed);
+                }
+                await wait(pause);
+                // erase
+                for(let i=text.length;i>=0;i--){
+                    el.textContent = text.slice(0,i);
+                    await wait(30);
+                }
+                await wait(200);
+            }
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', ()=>{
+        const el = document.getElementById('typewriter');
+        if(el){
+            typewriter(el, ['Pampanga State University','PSU Lubao Campus']);
+        }
+    });
+    </script>
+
+</html>
+</html>

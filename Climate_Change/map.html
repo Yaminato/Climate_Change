@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map - Campus Safety Guide</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">
+        <img src="psu-lubao.png" alt="Lubao Campus" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;" />
+        </div>
+        <a href="home.html" class="nav-item">Home</a>
+        <a href="climate.html" class="nav-item">Climate Change</a>
+        <a href="campus.html" class="nav-item">Campus Guide</a>
+        <a href="map.html" class="nav-item active">Map</a>
+        <a href="about.html" class="nav-item">About</a>
+    </nav>
+
+    <div class="page active">
+        <div class="content-section">
+            <h1 style="text-align: center;">Interactive Campus Map</h1>
+            <div class="divider"></div>
+            <p style="text-align: center;">Click on any building to explore rooms and view disaster evacuation guides.</p>
+            
+            <div class="campus-map" id="campusMap">
+                
+                <div class="building" data-building="Main-Building" style="left: 30%; top: 25%; width: 75px; height: 75px;">
+                    <div class="map-name">Main Building</div>
+                    <img src="admin.png" alt="Main Building" style="width: 100%; height: 100%; object-fit: cover;" />
+                </div>
+                <div class="building" data-building="MRM-Building" style="left: 35%; top: 34%; width: 75px; height: 75px;">
+                    <div class="map-name">MRM Building</div>
+                    <img src="mrm.png" alt="Science Lab" style="width: 100%; height: 100%; object-fit: cover;" />
+                </div>
+                <div class="building" data-building="ARM-Building" style="left: 50%; top: 30%; width: 75px; height: 75px;">
+                    <div class="map-name">ARM Building</div>
+                    <img src="arm.png" alt="Library" style="width: 100%; height: 100%; object-fit: cover;" />
+                </div>
+                <div class="building" data-building="Cover-Court" style="left: 75%; top: 50%; width: 75px; height: 75px;">
+                    <div class="map-name">Cover Court</div>
+                    <img src="gym1.png" alt="Gymnasium" style="width: 100%; height: 100%; object-fit: cover;" />
+                </div>
+                <div class="building" data-building="ERM-Building" style="left: 80%; top: 5%; width: 75px; height: 75px;">
+                    <div class="map-name">ERM Building</div>
+                    <img src="erm.png" alt="Main Building" style="width: 100%; height: 100%; object-fit: cover;" />
+                </div>
+                <div class="building" data-building="Canteen" style="left: 59%; top: 6%; width: 75px; height: 75px;">
+                    <div class="map-name">Canteen</div>
+                    <img src="canteen.png" alt="Cafeteria" style="width: 100%; height: 100%; object-fit: cover;" />
+                </div>
+            </div>
+
+            <div id="buildingDetails"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

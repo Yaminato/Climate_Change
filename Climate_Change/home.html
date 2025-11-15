@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Climate Change & Campus Safety Guide</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">
+        <img src="psu-lubao.png" alt="Lubao Campus" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;" />
+        </div>
+        <a href="home.html" class="nav-item active">Home</a>
+        <a href="climate.html" class="nav-item">Climate Change</a>
+        <a href="campus.html" class="nav-item">Campus Guide</a>
+        <a href="map.html" class="nav-item">Map</a>
+        <a href="about.html" class="nav-item">About</a>
+    </nav>
+
+    <div class="page active">
+        <div class="content-section">
+            <h1 id="home-type" class="home-type" style="text-align: center;"></h1>
+            <div class="divider"></div>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto;">Explore our comprehensive guide combining climate change education with campus safety and disaster preparedness. Navigate through our interactive campus map and learn about emergency procedures for every building and room.</p>
+        </div>
+    </div>
+    <script>
+    // Typewriter for home page header
+    (function(){
+        function wait(ms){return new Promise(r=>setTimeout(r,ms));}
+        async function type(el, texts){
+            while(true){
+                for(const t of texts){
+                    el.textContent = '';
+                    for(let i=0;i<t.length;i++){ el.textContent += t[i]; await wait(60); }
+                    await wait(2000);
+                    for(let i=t.length;i>=0;i--){ el.textContent = t.slice(0,i); await wait(30); }
+                    await wait(300);
+                }
+            }
+        }
+        document.addEventListener('DOMContentLoaded', ()=>{
+            const el = document.getElementById('home-type');
+            if(el) type(el, ['Welcome to Our Campus','Welcome to Pampanga State University']);
+        });
+    })();
+    </script>
+</body>
+</html>
