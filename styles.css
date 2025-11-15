@@ -1,0 +1,563 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: #ffffff;
+    min-height: 100vh;
+}
+
+nav {
+    background: #ffffff;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 1px solid #f0f0f0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: #666;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s;
+    position: relative;
+    font-size: 0.95rem;
+}
+
+.nav-item:hover {
+    color: #333;
+}
+
+.nav-item.active {
+    color: #333;
+}
+
+.nav-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1.5rem;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #800000, #b22234);
+    border-radius: 2px;
+}
+
+.logo {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #800000, #b22234 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+}
+
+.page {
+    display: none;
+    padding: 3rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.page.active {
+    display: block;
+    animation: pageEnter 0.8s ease-out forwards;
+}
+
+@keyframes pageEnter {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.campus-guide-hero {
+    text-align: center;
+    padding: 3rem 0;
+}
+
+.campus-guide-hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
+}
+
+.campus-guide-hero h2 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: #999;
+    margin-bottom: 2rem;
+}
+
+.explore-btn {
+    background: #000;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+    margin-bottom: 3rem;
+}
+
+.explore-btn:hover {
+    background: #333;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.map-container {
+    background: #f5f5f5;
+    border-radius: 20px;
+    padding: 1rem;
+    min-height: 500px;
+    margin: 2rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    max-width: 1000px;
+    box-shadow: inset 3px 3px 5px rgba(0,0,0,0.2),
+                inset -3px -3px 5px rgba(255,255,255,0.8);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.map-container:hover {
+    transform: scale(1.02);
+    box-shadow: inset 4px 4px 6px rgba(0,0,0,0.25),
+                inset -4px -4px 6px rgba(255,255,255,0.9);
+}
+
+.map-placeholder {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    transition: all 0.3s ease-in-out;
+}
+
+.map-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 15px;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.map-placeholder img:hover {
+    filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.3));
+    transform: scale(1.01);
+}
+
+.campus-map {
+    position: relative;
+    width: 100%;
+    height: 800px;
+    background-image: url("campus_map.jpeg");
+    filter: brightness(0.9);
+    background-size: cover;
+    border-radius: 15px;
+    overflow: hidden;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.building {
+    position: absolute;
+    background: #ffffff00;
+    border: 3px solid #000;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 8px;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+    position: relative;
+    /* allow labels positioned outside the building box to be visible */
+    overflow: visible;
+}
+
+.building::before {
+    /* disabled: labels are now rendered as .map-name elements */
+    display: none;
+}
+
+.building:hover {
+    transform: scale(2.1) rotate(0deg) !important;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+    z-index: 20;
+    background: #f0f0f000;
+}
+
+.building:hover::before {
+    top: -45px;
+    animation: labelFadeIn 0.3s ease forwards;
+}
+
+@keyframes labelFadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* persistent map labels above each building */
+.map-name {
+    position: absolute;
+    top: -26px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ffffff ;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    /* shadow on the text to improve readability */
+    text-shadow: 0 2px 6px rgba(0,0,0,0.85);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    pointer-events: none;
+    transition: transform 0.22s ease, opacity 0.22s ease;
+    opacity: 0.95;
+    z-index: 12;
+}
+
+.building:hover .map-name {
+    transform: translateX(-50%) translateY(-6px) scale(1.03);
+    opacity: 1;
+}
+
+.building-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    color: white;
+    padding: 5px;
+    font-size: 0.9rem;
+    text-align: center;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.building:hover .building-label {
+    transform: translateY(0);
+}
+
+.divider {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #800000, #b22234);
+    margin: 0 auto 2rem;
+    border-radius: 2px;
+}
+
+.description {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+    color: #666;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.description strong {
+    color: #333;
+}
+
+.content-section {
+    padding: 3rem 0;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 2rem;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 2.5rem 0 1.5rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 1.5rem 0 1rem;
+}
+
+p {
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+}
+
+ul, ol {
+    margin-left: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+li {
+    margin-bottom: 0.8rem;
+    line-height: 1.7;
+    color: #555;
+}
+
+.climate-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.climate-card {
+    background: linear-gradient(135deg, #667eea 0%, #157ab5 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.climate-card h3 {
+    color: white;
+    margin-top: 0;
+}
+
+.climate-card p {
+    color: rgba(255,255,255,0.95);
+}
+
+.building-detail {
+    display: none;
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    margin-top: 2rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.building-detail.active {
+    display: block;
+}
+
+.room-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.room-card {
+    background: white;
+    border: 2px solid #e0e0e0;
+    color: #333;
+    padding: 2rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.room-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    border-color: #8b1e1e;
+}
+
+.disaster-guide {
+    display: none;
+    background: #e5808017;
+    border: 2px solid #8b1e1e;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-top: 2rem;
+}
+
+.disaster-guide.active {
+    display: block;
+}
+
+.disaster-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.disaster-tab {
+    padding: 0.8rem 1.8rem;
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+    color: #333;
+}
+
+.disaster-tab:hover {
+    border-color: linear-gradient(90deg, #800000, #b22234);
+}
+
+.disaster-tab.active {
+    background: linear-gradient(90deg, #800000, #b22234);
+    color: white;
+    border-color: linear-gradient(90deg, #800000, #b22234);
+}
+
+.disaster-content {
+    display: none;
+}
+
+.disaster-content.active {
+    display: block;
+}
+
+.exit-route {
+    background: #e8f5e9;
+    border-left: 4px solid #4caf50;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+}
+
+.back-btn {
+    background: #666;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    transition: all 0.3s;
+}
+
+.back-btn:hover {
+    background: #712121;
+}
+
+/* HERO / SLIDESHOW styles */
+.hero {
+    position: relative;
+    height: calc(100vh - 2px); /* subtract nav height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.bg-slides {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: block;
+}
+
+.bg-slides .slide {
+    position: absolute;
+    inset: 0;
+    background-position: center;
+    background-size: cover;
+    filter: blur(6px) brightness(0.6);
+    opacity: 0;
+    transform: scale(1.06);
+    animation: slideFade 16s linear infinite;
+}
+
+/* stagger the slides using the custom property --i */
+.bg-slides .slide:nth-child(1) { animation-delay: calc(0s); }
+.bg-slides .slide:nth-child(2) { animation-delay: calc(4s); }
+.bg-slides .slide:nth-child(3) { animation-delay: calc(8s); }
+.bg-slides .slide:nth-child(4) { animation-delay: calc(12s); }
+
+@keyframes slideFade {
+    0% { opacity: 0; transform: scale(1.06); }
+    6% { opacity: 1; transform: scale(1); }
+    24% { opacity: 1; transform: scale(1); }
+    30% { opacity: 0; transform: scale(0.98); }
+    100% { opacity: 0; }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+    color: #ffffff;
+    padding: 2rem;
+}
+
+.site-title {
+    font-size: clamp(28px, 5vw, 64px);
+    color: wheat;
+    margin: 0 0 0.5rem 0;
+    font-weight: 700;
+    text-shadow: 0 8px 20px rgba(0,0,0,0.6);
+    letter-spacing: 1px;
+}
+
+.subtitle {
+    font-size: clamp(14px, 1.6vw, 18px);
+    margin: 0 0 1.2rem 0;
+    color: rgba(255,255,255,0.92);
+}
+
+.hero-btn {
+    display: inline-block;
+    background: linear-gradient(90deg, #800000, #b22234);
+    color: white;
+    padding: 0.9rem 1.6rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.hero-btn:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.45);
+}
+
+
+
+/* ensure slideshow images are behind the nav and content */
+nav { position: relative; z-index: 10; }
